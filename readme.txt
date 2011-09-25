@@ -3,7 +3,7 @@
 ##        Mod title:  Sub Forum
 ##
 ##      Mod version:  1.0.9.6
-##  Works on FluxBB:  1.4.5
+##  Works on FluxBB:  1.4.7, 1.4.6, 1.4.5
 ##     Release date:  2011-03-31
 ##      Review date:  YYYY-MM-DD (Leave unedited)
 ##           Author:  pabb
