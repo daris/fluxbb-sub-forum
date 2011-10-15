@@ -2,16 +2,16 @@
 ##
 ##        Mod title:  Sub Forum
 ##
-##      Mod version:  1.0.9.6
+##      Mod version:  1.0.9.7
 ##  Works on FluxBB:  1.4.7, 1.4.6, 1.4.5
-##     Release date:  2011-03-31
-##      Review date:  YYYY-MM-DD (Leave unedited)
+##     Release date:  2011-10-15
+##      Review date:  2011-10-15
 ##           Author:  pabb
 ##
-##      Description:  This mod lets Administrators add subforums to forums. 
+##      Description:  This mod lets Administrators add subforums to forums.
 ##	  		          If you want to display last topic subject on index, use last_topic_on_index mod.
 ##
-##	 	    Credits:  Smartys for all re-coding the Sub Forum Mod to achieve the profile link, subject area and displaying of the last post on the 
+##	 	    Credits:  Smartys for all re-coding the Sub Forum Mod to achieve the profile link, subject area and displaying of the last post on the
 ##			          index even in the Sub forums. - Shedrock - http://shedrockonline.com - The idea and additional classes.
 ##
 ##   Repository URL:  http://fluxbb.org/resources/mods/sub-forum/
@@ -35,7 +35,10 @@
 ##
 ##       KNOWN BUGS:  When deleting topics, posts, it does not show the parent forum as it should.
 ##
-##        Changelog:  1.0.9.6
+##        Changelog:  1.0.9.7
+##                      - Update for FluxBB 1.4.7 [daris]
+##
+##                    1.0.9.6
 ##                      - Update for FluxBB 1.4.5 [daris]
 ##
 ##                    1.0.9.5
@@ -142,11 +145,11 @@ $sfdb = array();
 
 $forums_info = $db->query('SELECT f.num_topics, f.num_posts, f.parent_forum_id, f.last_post_id, f.last_poster, f.last_post, f.id, f.forum_name FROM '.$db->prefix.'forums AS f LEFT JOIN '.$db->prefix.'forum_perms AS fp ON (fp.forum_id=f.id AND fp.group_id='.$pun_user['g_id'].') WHERE (fp.read_forum IS NULL OR fp.read_forum=1) AND f.parent_forum_id <> 0 ORDER BY f.disp_position') or error('Unable to fetch subforum list', __FILE__, __LINE__, $db->error());
 
-while ($current = $db->fetch_assoc($forums_info)) 
+while ($current = $db->fetch_assoc($forums_info))
 {
 	if (!isset($sfdb[$current['parent_forum_id']]))
 		$sfdb[$current['parent_forum_id']] = array();
-		
+
 	$sfdb[$current['parent_forum_id']][] = $current;
 }
 ################################################################################
@@ -343,8 +346,8 @@ require PUN_ROOT.'header.php';
 #
 
 # Option Note: if you do not want the subforums displaying at the top
-# when you go into the main forum topic 
-# then in the following $sub_forum_result query change  
+# when you go into the main forum topic
+# then in the following $sub_forum_result query change
 # - ORDER BY disp_position')        -  to
 # - ORDER BY disp_position', true)  -  (without the dashes)
 #
@@ -368,26 +371,26 @@ if (!isset($_GET['p']) || $_GET['p'] == 1)
 			<li><a href="index.php"><?php echo $lang_common['Index'] ?></a></li>
 			<li><span>»&#160;</span><a href="viewforum.php?id=<?php echo $id ?>"><strong><?php echo pun_htmlspecialchars($cur_forum['forum_name']) ?></strong></a></li>
 		</ul>
-        <div class="clearer"></div>
-    </div>
+		<div class="clearer"></div>
+	</div>
 </div>
 
 <div id="punindex" class="subforumlist">
 
 <div id="vf1" class="blocktable">
-    <h2><span><?php echo $lang_sub_forum['Sub forums'] ?></span></h2>
-    <div class="box">
-        <div class="inbox">
-            <table cellspacing="0">
-            <thead>
-                <tr>
-                    <th class="tcl" scope="col"><?php echo $lang_common['Forum'] ?></th>
-                    <th class="tc2" scope="col"><?php echo $lang_index['Topics'] ?></th>
-                    <th class="tc3" scope="col"><?php echo $lang_common['Posts'] ?></th>
-                    <th class="tcr" scope="col"><?php echo $lang_common['Last post'] ?></th>
-                </tr>
-            </thead>
-            <tbody>
+	<h2><span><?php echo $lang_sub_forum['Sub forums'] ?></span></h2>
+	<div class="box">
+		<div class="inbox">
+			<table cellspacing="0">
+			<thead>
+				<tr>
+					<th class="tcl" scope="col"><?php echo $lang_common['Forum'] ?></th>
+					<th class="tc2" scope="col"><?php echo $lang_index['Topics'] ?></th>
+					<th class="tc3" scope="col"><?php echo $lang_common['Posts'] ?></th>
+					<th class="tcr" scope="col"><?php echo $lang_common['Last post'] ?></th>
+				</tr>
+			</thead>
+			<tbody>
 <?php
 		$subforum_count = 0;
 
@@ -455,30 +458,30 @@ if (!isset($_GET['p']) || $_GET['p'] == 1)
 				$moderators = "\t\t\t\t\t\t\t\t".'<p class="modlist">(<em>'.$lang_common['Moderated by'].'</em> '.implode(', ', $moderators).')</p>'."\n";
 			}
 ?>
-                <tr<?php if ($item_status != '') echo ' class="'.$item_status.'"'; ?>>
-                    <td class="tcl">
-                        <div class="intd">
-                            <div class="<?php echo $icon_type ?>"><div class="nosize"><?php echo forum_number_format($subforum_count) ?></div></div>
-                            <div class="tclcon">
-                                <?php echo $forum_field;
-                                if ($cur_subforum['moderators'] != '') {
-                                    echo "\n".$moderators;
-                                }
-                                ?>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="tc2"><?php echo $num_topics ?></td>
-                    <td class="tc3"><?php echo $num_posts ?></td>
-                    <td class="tcr"><?php echo $last_post ?></td>
-                </tr>
+				<tr<?php if ($item_status != '') echo ' class="'.$item_status.'"'; ?>>
+					<td class="tcl">
+						<div class="intd">
+							<div class="<?php echo $icon_type ?>"><div class="nosize"><?php echo forum_number_format($subforum_count) ?></div></div>
+							<div class="tclcon">
+								<?php echo $forum_field;
+								if ($cur_subforum['moderators'] != '') {
+									echo "\n".$moderators;
+								}
+								?>
+							</div>
+						</div>
+					</td>
+					<td class="tc2"><?php echo $num_topics ?></td>
+					<td class="tc3"><?php echo $num_posts ?></td>
+					<td class="tcr"><?php echo $last_post ?></td>
+				</tr>
 <?php
 		}
 ?>
-            </tbody>
-            </table>
-        </div>
-    </div>
+			</tbody>
+			</table>
+		</div>
+	</div>
 </div>
 
 </div>
@@ -539,7 +542,7 @@ else
 #
 
 			<li><a href="index.php"><?php echo $lang_common['Index'] ?></a></li>
-			
+
 #
 #---------[ 39. AFTER, ADD ]---------------------------------------------
 #
@@ -551,7 +554,7 @@ else
 #
 
 			<li><a href="index.php"><?php echo $lang_common['Index'] ?></a></li>
-			
+
 #
 #---------[ 41. AFTER, ADD ]---------------------------------------------
 #
@@ -632,15 +635,15 @@ admin_forums.php
 #---------[ 52. AFTER, ADD ]---------------------------------------------
 #
 
-                                <tr>
-                                    <th scope="row"><?php echo $lang_sub_forum['Parent forum'] ?></th>
-                                    <td>
-                                        <select name="parent_forum">
-                                            <option value="0"><?php echo $lang_sub_forum['No parent forum'] ?></option>
+								<tr>
+									<th scope="row"><?php echo $lang_sub_forum['Parent forum'] ?></th>
+									<td>
+										<select name="parent_forum">
+											<option value="0"><?php echo $lang_sub_forum['No parent forum'] ?></option>
 <?php
 
-    if (!in_array($cur_forum['id'],$parent_forums))
-    {
+	if (!in_array($cur_forum['id'],$parent_forums))
+	{
 		$result = $db->query('SELECT c.id AS cid, c.cat_name, f.id, f.forum_name, f.redirect_url, f.parent_forum_id FROM '.$db->prefix.'categories AS c INNER JOIN '.$db->prefix.'forums AS f ON c.id=f.cat_id ORDER BY c.disp_position, c.id, f.disp_position', true) or error('Unable to fetch category/forum list', __FILE__, __LINE__, $db->error());
 
 		$cur_category = 0;
@@ -654,19 +657,19 @@ admin_forums.php
 				echo "\t\t\t\t\t\t".'<optgroup label="'.pun_htmlspecialchars($forum_list['cat_name']).'">'."\n";
 				$cur_category = $forum_list['cid'];
 			}
-			
+
 			$selected = ($forum_list['id'] == $cur_forum['parent_forum_id']) ? ' selected="selected"' : '';
 
-            if(!$forum_list['parent_forum_id'] && $forum_list['id'] != $cur_forum['id'])
+			if(!$forum_list['parent_forum_id'] && $forum_list['id'] != $cur_forum['id'])
 				echo "\t\t\t\t\t\t\t".'<option value="'.$forum_list['id'].'"'.$selected.'>'.pun_htmlspecialchars($forum_list['forum_name']).'</option>'."\n";
 		}
-    }
+	}
 
 ?>
 											</optgroup>
-                                        </select>
-                                    </td>
-                                </tr>
+										</select>
+									</td>
+								</tr>
 
 #
 #---------[ 53. FIND (line: 450) ]---------------------------------------------
@@ -723,55 +726,67 @@ $result = $db->query('SELECT c.id AS cid, c.cat_name, f.id AS fid, f.forum_name,
 	echo "\t\t\t\t\t\t\t\t".'<option value="'.$cur_forum['fid'].'">'.($cur_forum['parent_forum_id'] == 0 ? '' : '&nbsp;&nbsp;&nbsp;').pun_htmlspecialchars($cur_forum['forum_name']).'</option>'."\n";
 
 #
-#---------[ 62. OPEN ]---------------------------------------------
+#---------[ 62. FIND ]---------------------------------------------
+#
+
+		echo "\t\t\t\t\t\t\t\t".'<div class="checklist-item"><span class="fld-input"><input type="checkbox" name="forums[]" id="forum-'.$cur_forum['fid'].'" value="'.$cur_forum['fid'].'" /></span> <label for="forum-'.$cur_forum['fid'].'">'.pun_htmlspecialchars($cur_forum['forum_name']).'</label></div>'."\n";
+
+#
+#---------[ 63. REPLACE WITH ]---------------------------------------------
+#
+
+		echo "\t\t\t\t\t\t\t\t".'<div class="checklist-item"'.($cur_forum['parent_forum_id'] == 0 ? '' : ' style="margin-left: 20px;"').'><span class="fld-input"><input type="checkbox" name="forums[]" id="forum-'.$cur_forum['fid'].'" value="'.$cur_forum['fid'].'" /></span> <label for="forum-'.$cur_forum['fid'].'">'.pun_htmlspecialchars($cur_forum['forum_name']).'</label></div>'."\n";
+
+#
+#---------[ 64. OPEN ]---------------------------------------------
 #
 
 include/cache.php
 
 #
-#---------[ 63. FIND (line: 181) ]---------------------------------------------
+#---------[ 65. FIND (line: 181) ]---------------------------------------------
 #
 
 			$result = $db->query('SELECT c.id AS cid, c.cat_name, f.id AS fid, f.forum_name, f.redirect_url FROM '.$db->prefix.'categories AS c INNER JOIN '.$db->prefix.'forums AS f ON c.id=f.cat_id LEFT JOIN '.$db->prefix.'forum_perms AS fp ON (fp.forum_id=f.id AND fp.group_id='.$group_id.') WHERE fp.read_forum IS NULL OR fp.read_forum=1 ORDER BY c.disp_position, c.id, f.disp_position') or error('Unable to fetch category/forum list', __FILE__, __LINE__, $db->error());
 
 #
-#---------[ 64. REPLACE WITH ]---------------------------------------------
+#---------[ 66. REPLACE WITH ]---------------------------------------------
 #
 
 			$result = $db->query('SELECT c.id AS cid, c.cat_name, f.id AS fid, f.forum_name, f.redirect_url, f.parent_forum_id FROM '.$db->prefix.'categories AS c INNER JOIN '.$db->prefix.'forums AS f ON c.id=f.cat_id LEFT JOIN '.$db->prefix.'forum_perms AS fp ON (fp.forum_id=f.id AND fp.group_id='.$group_id.') WHERE fp.read_forum IS NULL OR fp.read_forum=1 ORDER BY c.disp_position, c.id, f.disp_position') or error('Unable to fetch category/forum list', __FILE__, __LINE__, $db->error());
 
 #
-#---------[ 65. FIND (line: 196) ]---------------------------------------------
+#---------[ 67. FIND (line: 196) ]---------------------------------------------
 #
 
 			$output .= "\t\t\t\t\t\t\t".'<option value="'.$cur_forum['fid'].'"<?php echo ($forum_id == '.$cur_forum['fid'].') ? \' selected="selected"\' : \'\' ?>>'.pun_htmlspecialchars($cur_forum['forum_name']).$redirect_tag.'</option>'."\n";
 
 #
-#---------[ 66. REPLACE WITH ]---------------------------------------------
+#---------[ 68. REPLACE WITH ]---------------------------------------------
 #
 
 			$output .= "\t\t\t\t\t\t\t".'<option value="'.$cur_forum['fid'].'"<?php echo ($forum_id == '.$cur_forum['fid'].') ? \' selected="selected"\' : \'\' ?>>'.($cur_forum['parent_forum_id'] == 0 ? '' : '&nbsp;&nbsp;&nbsp;').pun_htmlspecialchars($cur_forum['forum_name']).$redirect_tag.'</option>'."\n";
 
 #
-#---------[ 67. OPEN (or any Air based style like Fire, Earth) ]---------------------------------------------
+#---------[ 69. OPEN (or any Air based style like Fire, Earth) ]---------------------------------------------
 #
 
 style/Air.css
 
 #
-#---------[ 68. FIND ]---------------------------------------------
+#---------[ 70. FIND ]---------------------------------------------
 #
 
 #punindex #brdmain .blocktable h2, #punsearch #vf h2 {
 
 #
-#---------[ 69. REPLACE WITH ]---------------------------------------------
+#---------[ 71. REPLACE WITH ]---------------------------------------------
 #
 
 #punindex #brdmain .blocktable h2, #punindex.subforumlist .blocktable h2, #punsearch #vf h2 {
 
 #
-#---------[ 70. ATTENTION ]-----------------------------------------------
+#---------[ 72. ATTENTION ]-----------------------------------------------
 #
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -782,11 +797,11 @@ style/Air.css
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 #
-#---------[ 71. NOTE ]-----------------------------------------------
+#---------[ 73. NOTE ]-----------------------------------------------
 #
 
 If you want to display last topic subject, install last_topic_on_index modification.
 
 #
-#---------[ 72. SAVE/UPLOAD ]-------------------------------------------------
+#---------[ 74. SAVE/UPLOAD ]-------------------------------------------------
 #
