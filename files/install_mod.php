@@ -3,13 +3,13 @@
 
 // Some info about your mod.
 $mod_title      = 'Sub forum';
-$mod_version    = '1.0.9.6';
-$release_date   = '2011-03-31';
+$mod_version    = '1.0.9.8';
+$release_date   = '2012-01-21';
 $author         = 'Daris';
 $author_email   = 'daris91@gmail.com';
 
 // Versions of FluxBB this mod was created for. A warning will be displayed, if versions do not match
-$fluxbb_versions= array('1.4.7', '1.4.6', '1.4.5', '1.4.4', '1.4.3', '1.4.2', '1.4.1', '1.4.0', '1.4-rc3');
+$fluxbb_versions= array('1.4.8', '1.4.7', '1.4.6', '1.4.5', '1.4.4', '1.4.3', '1.4.2', '1.4.1', '1.4.0', '1.4-rc3');
 
 // Set this to false if you haven't implemented the restore function (see below)
 $mod_restore	= true;

@@ -2,10 +2,10 @@
 ##
 ##        Mod title:  Sub Forum
 ##
-##      Mod version:  1.0.9.7
-##  Works on FluxBB:  1.4.7, 1.4.6, 1.4.5
-##     Release date:  2011-10-15
-##      Review date:  2011-10-15
+##      Mod version:  1.0.9.8
+##  Works on FluxBB:  1.4.8, 1.4.7, 1.4.6, 1.4.5
+##     Release date:  2012-01-21
+##      Review date:  2012-01-21
 ##           Author:  pabb
 ##
 ##      Description:  This mod lets Administrators add subforums to forums.
