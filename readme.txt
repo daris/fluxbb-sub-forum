@@ -6,6 +6,7 @@
 ##  Works on FluxBB:  1.4.8, 1.4.7, 1.4.6, 1.4.5
 ##     Release date:  2012-01-21
 ##      Review date:  2012-01-21
+##       Maintainer:  Daris (daris91@gmail.com)
 ##           Author:  pabb
 ##
 ##      Description:  This mod lets Administrators add subforums to forums.
@@ -35,7 +36,11 @@
 ##
 ##       KNOWN BUGS:  When deleting topics, posts, it does not show the parent forum as it should.
 ##
-##        Changelog:  1.0.9.7
+##        Changelog:
+##                    1.0.9.9
+##                      - Update for FluxBB 1.5.0 [daris]
+##
+##                    1.0.9.7
 ##                      - Update for FluxBB 1.4.7 [daris]
 ##
 ##                    1.0.9.6
@@ -571,7 +576,7 @@ admin_forums.php
 #---------[ 43. FIND (line: 170) ]---------------------------------------------
 #
 
-			$redirect_url = isset($_POST['redirect_url']) ? trim($_POST['redirect_url']) : null;
+		$redirect_url = isset($_POST['redirect_url']) ? pun_trim($_POST['redirect_url']) : null;
 
 #
 #---------[ 44. AFTER, ADD ]---------------------------------------------
