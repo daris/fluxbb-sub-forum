@@ -2,10 +2,10 @@
 ##
 ##        Mod title:  Sub Forum
 ##
-##      Mod version:  1.0.9.8
-##  Works on FluxBB:  1.4.8, 1.4.7, 1.4.6, 1.4.5
-##     Release date:  2012-01-21
-##      Review date:  2012-01-21
+##      Mod version:  1.0.9.9
+##  Works on FluxBB:  1.5.0
+##     Release date:  2012-08-03
+##      Review date:  2012-08-03
 ##       Maintainer:  Daris (daris91@gmail.com)
 ##           Author:  pabb
 ##
